@@ -58,7 +58,16 @@ RSpec.describe 'Admin Shelter Show Page' do
     within('#action_required') do 
       expect(page).to have_content('Lucille Bald')
       expect(page).to have_content('Dogmin')
-      save_and_open_page
+    end
+  end
+
+  it 'displays a link next to each pet that requires attention that links to the application show page' do 
+   
+    visit "/admin/shelters/#{@shelter_1.id}"
+    save_and_open_page
+    within('#action_required') do 
+      first(:link, "Application Page").click 
+      expect(current_path).to eq("/admin/applications/#{@application.id}")
     end
   end
 end
