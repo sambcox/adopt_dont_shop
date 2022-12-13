@@ -38,35 +38,35 @@ RSpec.describe 'Admin Shelter Show Page' do
     end
   end
 
-  it 'displays count of pets at the shelter' do 
+  it 'displays count of pets at the shelter' do
     visit "/admin/shelters/#{@shelter_1.id}"
-    within('#statistics') do 
+    within('#statistics') do
       expect(page).to have_content("Number of adoptable pets: 4")
     end
   end
 
-  it 'displays number of pets adopted from a shelter' do 
+  it 'displays number of pets adopted from a shelter' do
     @application.update(status: 'Approved')
     visit "/admin/shelters/#{@shelter_1.id}"
-    within('#statistics') do 
+    within('#statistics') do
       expect(page).to have_content("Number of pets adopted: 2")
     end
   end
 
-  it 'displays a list of applications that require attention' do 
+  it 'displays a list of applications that require attention' do
+    @pet_4.application_pets.first.update(pet_status: 'Approved')
     visit "/admin/shelters/#{@shelter_1.id}"
-    within('#action_required') do 
-      expect(page).to have_content('Lucille Bald')
+    within('#action_required') do
+      expect(page).to_not have_content('Lucille Bald')
       expect(page).to have_content('Dogmin')
     end
   end
 
-  it 'displays a link next to each pet that requires attention that links to the application show page' do 
-   
+  it 'displays a link next to each pet that requires attention that links to the application show page' do
+
     visit "/admin/shelters/#{@shelter_1.id}"
-    save_and_open_page
-    within('#action_required') do 
-      first(:link, "Application Page").click 
+    within('#action_required') do
+      first(:link, "Application Page").click
       expect(current_path).to eq("/admin/applications/#{@application.id}")
     end
   end
