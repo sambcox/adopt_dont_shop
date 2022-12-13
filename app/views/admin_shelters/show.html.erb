@@ -25,7 +25,7 @@ Location: <%= "#{@shelter.street_address}, #{@shelter.city} #{@shelter.zip_code}
 </div>
 <h2>Action Required:</h2>
 <div id="action_required">
-  <% @shelter.pets_with_pending_apps.each do |pet| %>
-  <%= pet.name %><%= link_to "Application Page", "/admin/applications/#{pet.id}"%><br>
+  <% @action_pets.each do |pet| %>
+  <%= pet.name %><%= link_to "Application Page", "/admin/applications/#{pet.application_id}"%><br>
   <% end %>
 </div>

@@ -45,7 +45,7 @@ class Shelter < ApplicationRecord
     pets.where(adoptable: true)
   end
 
-  def adopted_pet_count 
+  def adopted_pet_count
     Shelter.joins(pets: :applications).where(applications: {status: 'Approved'}).count
   end
 
@@ -53,8 +53,10 @@ class Shelter < ApplicationRecord
     adoptable_pets.order(name: :asc)
   end
 
-  def pets_with_pending_apps 
-    Shelter.select('pets.name, applications.id').joins(pets: :applications).where(applications: {status: 'In Progress'})
+  def pets_with_pending_apps
+    # Shelter.select('pets.name, applications.id').joins(pets: :applications).where(applications: {status: 'In Progress'})
+
+    pets.select('pets.*, application_pets.application_id').joins(:applications).where(applications: {status: 'In Progress'}, application_pets: {pet_status: 'Pending'})
   end
 
   def shelter_pets_filtered_by_age(age_filter)
