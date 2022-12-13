@@ -50,7 +50,7 @@ class Shelter < ApplicationRecord
   end
 
   def pets_with_pending_apps 
-    Shelter.joins(pets: :applications).where(applications: {status: 'In Progress'}).select('pets.*')
+    Shelter.select('pets.name, applications.id').joins(pets: :applications).where(applications: {status: 'In Progress'})
   end
 
   def shelter_pets_filtered_by_age(age_filter)
