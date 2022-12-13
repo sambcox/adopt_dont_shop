@@ -7,10 +7,10 @@ class Application < ApplicationRecord
 
   def check_approval!
     if application_pets.where(pet_status: 'Approved') == application_pets
-      update!(status: 'Approved')
+      update(status: 'Approved')
       pets.update_all(adoptable: false)
     elsif application_pets.where(pet_status: 'Rejected') != []
-      update!(status: 'Rejected')
+      update(status: 'Rejected')
     end
   end
 end

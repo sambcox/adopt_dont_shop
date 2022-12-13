@@ -27,12 +27,8 @@ class Shelter < ApplicationRecord
     find_by_sql('SELECT * FROM shelters ORDER BY name DESC')
   end
 
-  def self.order_by_name_asc
-    Shelter.order(:name)
-  end
-
   def self.shelters_with_pending_apps
-    Shelter.select('shelters.*').distinct.joins(pets: :applications).where(applications: { status: 'In Progress' })
+    Shelter.select('shelters.*').distinct.joins(pets: :applications).where(applications: { status: 'In Progress' }).order(:name)
   end
 
   def self.find_shelter_raw(shelter_id)
@@ -52,11 +48,13 @@ class Shelter < ApplicationRecord
   end
 
   def alphabetical_pets
-    adoptable_pets.order(name: :asc)
+    adoptable_pets.order(:name)
   end
 
   def pets_with_pending_apps
-    pets.select('pets.*, application_pets.application_id').joins(:applications).where(applications: {status: 'In Progress'}, application_pets: {pet_status: 'Pending'})
+    pets.select('pets.*, application_pets.application_id')
+      .joins(:applications)
+      .where(applications: {status: 'In Progress'}, application_pets: {pet_status: 'Pending'})
   end
 
   def shelter_pets_filtered_by_age(age_filter)
