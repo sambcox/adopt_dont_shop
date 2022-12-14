@@ -18,6 +18,14 @@ RSpec.describe 'the shelters index' do
     expect(page).to have_content(@shelter_3.name)
   end
 
+  it 'each shelter name is a link' do
+    visit '/shelters'
+
+    click_on @shelter_1.name
+
+    expect(current_path).to eq "/shelters/#{@shelter_1.id}"
+  end
+
   it 'lists the shelters by most recently created first' do
     visit '/shelters'
 
