@@ -8,12 +8,12 @@ class ApplicationPetsController < ApplicationController
   def update
     application_pet = ApplicationPet.find_application_pet(params[:application_id], params[:pet_id])
 
-    application_pet.update(pet_status: params[:status])
+    application_pet.update(application_pet_params)
     redirect_to "/admin/applications/#{params[:application_id]}"
    end
 
   private
   def application_pet_params
-    params.permit(:application_id, :pet_id)
+    params.permit(:application_id, :pet_id, :pet_status)
   end
 end
