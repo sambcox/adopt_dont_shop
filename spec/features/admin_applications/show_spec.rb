@@ -15,12 +15,14 @@ RSpec.describe 'Application show view' do
                                         city: 'Denver',
                                         state: 'CO',
                                         zip_code: 22_314,
-                                        reason: 'Nice person'
                                       })
     @pet_1 = @application.pets.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald',
                                       shelter_id: @shelter.id)
     @pet_2 = @application.pets.create(adoptable: true, age: 5, breed: 'lab', name: 'Dogmin', shelter_id: @shelter.id)
     @pet_3 = Pet.create(adoptable: true, age: 2, breed: 'Shih-Poo', name: 'Frankie', shelter_id: @shelter.id)
+    visit "/applications/#{@application.id}"
+    fill_in('reason', with: 'Nice person')
+    click_on "Submit Application"
   end
 
   it 'has the ability to approve a pet' do
@@ -30,7 +32,7 @@ RSpec.describe 'Application show view' do
     expect(page).to have_content('Nice person')
     expect(page).to have_content('Lucille Bald')
     expect(page).to have_content('Dogmin')
-    expect(page).to have_content('In Progress')
+    expect(page).to have_content('Pending')
 
     click_button 'Approve Dogmin'
 
@@ -47,7 +49,7 @@ RSpec.describe 'Application show view' do
     expect(page).to have_content('Nice person')
     expect(page).to have_content('Lucille Bald')
     expect(page).to have_content('Dogmin')
-    expect(page).to have_content('In Progress')
+    expect(page).to have_content('Pending')
 
     click_button 'Reject Dogmin'
 
@@ -75,7 +77,7 @@ RSpec.describe 'Application show view' do
     expect(page).to have_content('Nice person')
     expect(page).to have_content('Lucille Bald')
     expect(page).to have_content('Dogmin')
-    expect(page).to have_content('In Progress')
+    expect(page).to have_content('Pending')
 
     click_button 'Reject Dogmin'
 
@@ -93,7 +95,7 @@ RSpec.describe 'Application show view' do
     click_button 'Approve Lucille Bald'
 
     expect(page).to have_content('Status: Approved')
-    expect(page).to_not have_content('Status: In Progress')
+    expect(page).to_not have_content('Status: Pending')
   end
 
   it 'rejects the application if any pets are rejected' do
@@ -103,7 +105,7 @@ RSpec.describe 'Application show view' do
     click_button 'Approve Lucille Bald'
 
     expect(page).to have_content('Status: Rejected')
-    expect(page).to_not have_content('Status: In Progress')
+    expect(page).to_not have_content('Status: Pending')
     expect(page).to_not have_content('Status: Approved')
   end
 

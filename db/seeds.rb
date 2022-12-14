@@ -26,6 +26,7 @@ Application.destroy_all
                                     state: 'CO',
                                     zip_code: 22_314,
                                     reason: 'Nice person'
+                                    status: 'Pending'
                                   })
 @pet_4 = @application.pets.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald',
                                   shelter_id: @shelter_1.id)

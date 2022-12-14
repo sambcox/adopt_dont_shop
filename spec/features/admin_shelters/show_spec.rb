@@ -18,12 +18,14 @@ RSpec.describe 'Admin Shelter Show Page' do
                                         city: 'Denver',
                                         state: 'CO',
                                         zip_code: 22_314,
-                                        reason: 'Nice person'
                                       })
 
     @pet_4 = @application.pets.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald',
                                       shelter_id: @shelter_1.id)
     @pet_5 = @application.pets.create(adoptable: true, age: 5, breed: 'lab', name: 'Dogmin', shelter_id: @shelter_1.id)
+    visit "/applications/#{@application.id}"
+    fill_in('reason', with: 'Nice person')
+    click_on "Submit Application"
   end
 
   it 'shows shelter name and address' do
