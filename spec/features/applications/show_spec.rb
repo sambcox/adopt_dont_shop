@@ -70,7 +70,7 @@ RSpec.describe 'Application show view' do
 
     click_button 'Search'
 
-    click_on 'Frankie'
+    click_on 'Adopt Frankie'
 
     expect(current_path).to eq("/applications/#{@application.id}")
 
@@ -88,7 +88,7 @@ RSpec.describe 'Application show view' do
 
     click_button 'Search'
 
-    click_on 'Frankie'
+    click_on 'Adopt Frankie'
 
     expect(current_path).to eq("/applications/#{@application.id}")
 
@@ -102,7 +102,7 @@ RSpec.describe 'Application show view' do
     expect(page).to have_content('Pending')
   end
 
-  it 'can submit an application' do
+  it 'will not submit an application without pets added' do
     visit "/applications/#{@application.id}"
 
     expect(page).to have_content('Add a new pet to this application:')
