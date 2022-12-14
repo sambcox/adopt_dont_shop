@@ -21,7 +21,7 @@ RSpec.describe 'shelter creation' do
         fill_in 'Name', with: 'Houston Shelter'
         fill_in 'street_address', with: '1236 2nd St'
         fill_in 'City', with: 'Houston'
-        fill_in 'zip_code', with: 50236
+        fill_in 'zip_code', with: 50_236
         check 'Foster program'
         fill_in 'Rank', with: 7
         click_button 'Save'

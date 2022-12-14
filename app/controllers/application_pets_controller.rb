@@ -10,9 +10,10 @@ class ApplicationPetsController < ApplicationController
 
     application_pet.update(application_pet_params)
     redirect_to "/admin/applications/#{params[:application_id]}"
-   end
+  end
 
   private
+
   def application_pet_params
     params.permit(:application_id, :pet_id, :pet_status)
   end

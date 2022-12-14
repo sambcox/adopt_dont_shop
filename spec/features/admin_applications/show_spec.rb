@@ -2,9 +2,12 @@ require 'rails_helper'
 
 RSpec.describe 'Application show view' do
   before :each do
-    @shelter = Shelter.create(name: 'Aurora shelter', street_address: '1234 Main St', city: 'Aurora, CO', zip_code: 80014, foster_program: false, rank: 9)
-    @shelter_2 = Shelter.create(name: 'RGV animal shelter', street_address: '1568 1st St', city: 'Harlingen, TX', zip_code: 59235, foster_program: false, rank: 5)
-    @shelter_3 = Shelter.create(name: 'Fancy pets of Colorado', street_address: '9536 W 32nd Ave', city: 'Denver, CO', zip_code: 80220, foster_program: true, rank: 10)
+    @shelter = Shelter.create(name: 'Aurora shelter', street_address: '1234 Main St', city: 'Aurora, CO',
+                              zip_code: 80_014, foster_program: false, rank: 9)
+    @shelter_2 = Shelter.create(name: 'RGV animal shelter', street_address: '1568 1st St', city: 'Harlingen, TX',
+                                zip_code: 59_235, foster_program: false, rank: 5)
+    @shelter_3 = Shelter.create(name: 'Fancy pets of Colorado', street_address: '9536 W 32nd Ave', city: 'Denver, CO',
+                                zip_code: 80_220, foster_program: true, rank: 10)
 
     @application = Application.create({
                                         name: 'Jeff',
@@ -14,13 +17,13 @@ RSpec.describe 'Application show view' do
                                         zip_code: 22_314,
                                         reason: 'Nice person'
                                       })
-    @pet_1 = @application.pets.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald', shelter_id: @shelter.id)
+    @pet_1 = @application.pets.create(adoptable: true, age: 1, breed: 'sphynx', name: 'Lucille Bald',
+                                      shelter_id: @shelter.id)
     @pet_2 = @application.pets.create(adoptable: true, age: 5, breed: 'lab', name: 'Dogmin', shelter_id: @shelter.id)
     @pet_3 = Pet.create(adoptable: true, age: 2, breed: 'Shih-Poo', name: 'Frankie', shelter_id: @shelter.id)
   end
 
   it 'has the ability to approve a pet' do
-
     visit "/admin/applications/#{@application.id}"
     expect(page).to have_content('Jeff')
     expect(page).to have_content('123 Main Street, Denver CO, 22314')
@@ -38,7 +41,6 @@ RSpec.describe 'Application show view' do
   end
 
   it 'has the ability to reject a pet' do
-
     visit "/admin/applications/#{@application.id}"
     expect(page).to have_content('Jeff')
     expect(page).to have_content('123 Main Street, Denver CO, 22314')
