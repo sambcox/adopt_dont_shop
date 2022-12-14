@@ -10,8 +10,6 @@ class Shelter < ApplicationRecord
   has_many :pets, dependent: :destroy
   has_many :applications, through: :pets
 
-
-
   def self.order_by_recently_created
     order(created_at: :desc)
   end
@@ -44,7 +42,7 @@ class Shelter < ApplicationRecord
   end
 
   def adopted_pet_count
-    pets.joins(:applications).where(applications: {status: 'Approved'}).count
+    pets.joins(:applications).where(applications: { status: 'Approved' }).count
   end
 
   def alphabetical_pets
@@ -53,8 +51,8 @@ class Shelter < ApplicationRecord
 
   def pets_with_pending_apps
     pets.select('pets.*, application_pets.application_id')
-      .joins(:applications)
-      .where(applications: {status: 'In Progress'}, application_pets: {pet_status: 'Pending'})
+        .joins(:applications)
+        .where(applications: { status: 'In Progress' }, application_pets: { pet_status: 'Pending' })
   end
 
   def shelter_pets_filtered_by_age(age_filter)
