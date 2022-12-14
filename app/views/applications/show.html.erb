@@ -3,6 +3,7 @@ Pets inquired about:
 <% @application.pets.each do |pet| %>
   <%= link_to "#{pet.name}", "/pets/#{pet.id}" %><br>
 <% end %>
+
 <% if @application.status == 'In Progress' %>
   <% if @application.pets.count > 0 %>
     Write a short message explaining why you would make a good owner:
@@ -11,11 +12,13 @@ Pets inquired about:
       <%= form.submit 'Submit Application' %>
     <% end %>
   <% end %>
+
   <%= form_with url: "/applications/#{@application.id}?add_pets=true", method: :get, local: true do |form| %>
     <%= form.label :name_input, 'Add a new pet to this application:' %>
     <%= form.text_field :name_input %>
     <%= form.submit 'Search' %>
   <% end %>
+
   <% @pets.each do |pet| %>
     <%= pet.name %>
     <%= button_to "Adopt #{pet.name}", "/applications/#{@application.id}/pets/#{pet.id}", method: :post %>
