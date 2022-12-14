@@ -26,7 +26,7 @@ class Shelter < ApplicationRecord
   end
 
   def self.shelters_with_pending_apps
-    Shelter.select('shelters.*').distinct.joins(pets: :applications).where(applications: { status: 'In Progress' }).order(:name)
+    Shelter.select('shelters.*').distinct.joins(pets: :applications).where(applications: { status: 'Pending' }).order(:name)
   end
 
   def self.find_shelter_raw(shelter_id)
@@ -52,7 +52,7 @@ class Shelter < ApplicationRecord
   def pets_with_pending_apps
     pets.select('pets.*, application_pets.application_id')
         .joins(:applications)
-        .where(applications: { status: 'In Progress' }, application_pets: { pet_status: 'Pending' })
+        .where(applications: { status: 'Pending' }, application_pets: { pet_status: 'Pending' })
   end
 
   def shelter_pets_filtered_by_age(age_filter)

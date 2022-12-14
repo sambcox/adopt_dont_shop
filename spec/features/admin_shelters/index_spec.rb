@@ -29,6 +29,9 @@ RSpec.describe 'the shelters index' do
                                       shelter_id: @shelter_2.id)
     @pet_7 = @application.pets.create(adoptable: true, age: 4, breed: 'poodle', name: 'Cosmo',
                                       shelter_id: @shelter_2.id)
+    visit "/applications/#{@application.id}"
+    fill_in('reason', with: 'Nice person')
+    click_on "Submit Application"
   end
 
   it 'as an admin, shelters are listed in reverse alphabetical order by name' do

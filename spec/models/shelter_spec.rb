@@ -38,6 +38,7 @@ RSpec.describe Shelter, type: :model do
     @pet_3 = @application.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true,
                                       shelter_id: @shelter_3.id)
     @pet_4 = @application.pets.create(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true, shelter_id: @shelter_1.id)
+    @application.update(status: 'Pending')
   end
 
   describe 'class methods' do
@@ -73,6 +74,7 @@ RSpec.describe Shelter, type: :model do
                                           shelter_id: @shelter_1.id)
         @pet_5 = @application.pets.create(adoptable: true, age: 5, breed: 'lab', name: 'Dogmin',
                                           shelter_id: @shelter_1.id)
+        @application.update(status: 'Pending')
       end
       it 'returns table of shelters with in-progress applications' do
         expect(Shelter.shelters_with_pending_apps).to eq([@shelter_1, @shelter_3])
